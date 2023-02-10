@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .preview-images img {
+            width: 70%;
+        }
+        
+        .container {
+            width: auto;
+            height: auto;
+            border: 1px rgba(238, 238, 238, 0.192);
+            margin: auto 10px;
+        }
+        
+        h1 {
+            position: relative;
+            left: 50px;
+        }
+        
+        body {
+            background-color: rgba(238, 238, 238, 0.192);
+        }
+        
+        a,
+        button {
+            cursor: pointer;
+            color: #383838;
+        }
+        
+        main {
+            height: 100%;
+            display: grid;
+            grid-template-columns: minmax(60px, 1fr) repeat(6, minmax(50px, 190px))minmax(60px, 1fr);
+        }
+        
+        header {
+            grid-column: 2/ span 6;
+        }
+        
+        nav {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: -1070px;
+            margin-left: -60px;
+            background-color: rgb(168, 168, 168);
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            height: 150px;
+        }
+        
+        .links {
+            margin-left: auto;
+        }
+        
+        .links a,
+        .links button {
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: all 0.3s ease 0s;
+        }
+        
+        .links a {
+            margin-right: 30px;
+        }
+        
+        .links a:hover {
+            color: #6d6d6d;
+        }
+        
+        .button_med {
+            border: none;
+            background-color: #8E8E8E;
+            padding: 8px 17px;
+            transition: all 0.3s ease 0s;
+        }
+        
+        .button_med:hover {
+            color: #6d6d6d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="rows">
+            <div class="col-sm-8 mt-3">
+                <main>
+                    <header>
+                        <nav>
+                            <h1>Upload Page</h1>
+                            <div class="links">
+                                <a href='/'>Match</a>
+                                <a href='/styleme'>Collection</a>
+                                <a class="button_med" href="https://codepen.io/Nongnapat/pen/ZErpGaQ"> Home </a>
+                            </div>
+                        </nav>
+                    </header>
+                </main>
+                <form action="/upload" class="mt-4" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="file" id="input-files" class="form-control border"></input>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="preview-images"> </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            let imagesPreview = function(input, placeToInsertImagePreview) {
+                if (input.files) {
+                    let filesAmount = input.files.length;
+                    for (let i = 0; i < filesAmount; i++) {
+                        let reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML("<img>"))
+                                .attr("src", event.target.result)
+                                .appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            }
+            $('#input-files').on('change', function() {
+                imagesPreview(this, "div.preview-images")
+            })
+        });
+    </script>
+
+</body>
+
+</html>
